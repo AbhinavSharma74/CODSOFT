@@ -1,0 +1,17 @@
+package student.course.registration;
+import java.sql.*;
+
+public class StudentConn {
+
+    Connection c;
+    Statement s;
+    
+    public StudentConn(){
+        try {
+            c=DriverManager.getConnection("jdbc:mysql:///StudentCourseRegistration", "root", "abhinav706077");
+            s=c.createStatement();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+}
