@@ -1,0 +1,71 @@
+package student.course.registration;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Courses extends JFrame implements ActionListener {
+
+    JLabel pageTitle;
+    JPanel coursePanel;
+    JButton submitButton;
+
+    Courses() {
+        setTitle("Course Selection");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Title Label
+        pageTitle = new JLabel("Select the Course");
+        pageTitle.setFont(new Font("Osward", Font.BOLD, 22));
+        pageTitle.setHorizontalAlignment(JLabel.CENTER);
+        add(pageTitle, BorderLayout.NORTH);
+
+        // Course Selection Panel
+        coursePanel = new JPanel();
+        coursePanel.setLayout(new GridLayout(0, 1)); // A column of course options
+        add(coursePanel, BorderLayout.CENTER);
+
+        // Sample course options (8 courses)
+        addCourseOption("MATH101 - Introduction to Mathematics");
+        addCourseOption("COMP101 - Introduction to Computer Science");
+        addCourseOption("ENG101 - English Composition");
+        addCourseOption("HIS101 - World History");
+        addCourseOption("BIO101 - Biology Fundamentals");
+        addCourseOption("CHEM101 - Chemistry Basics");
+        addCourseOption("PHY101 - Physics for Beginners");
+        addCourseOption("ART101 - Introduction to Art");
+
+        // Submit Button
+        submitButton = new JButton("Submit");
+        submitButton.addActionListener(this);
+        add(submitButton, BorderLayout.SOUTH);
+
+        getContentPane().setBackground(Color.WHITE);
+        setSize(450, 400);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    // Add a course option to the panel
+    private void addCourseOption(String courseName) {
+        JCheckBox checkBox = new JCheckBox(courseName);
+        coursePanel.add(checkBox);
+    }
+
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == submitButton) {
+            // Handle course selection and registration here
+            // You can iterate through the coursePanel components to see which courses are selected
+            JOptionPane.showMessageDialog(null, "You are enrolled to the courses");
+            setVisible(false);
+        }
+    }
+
+    public static void main(String args[]) {
+        SwingUtilities.invokeLater(() -> {
+            new Courses();
+        });
+    }
+}
