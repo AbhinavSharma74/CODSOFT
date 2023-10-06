@@ -1,0 +1,111 @@
+package student.course.registration;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Login extends JFrame implements ActionListener{
+    
+    JButton signUp, Login, clear;
+    JLabel name, password;
+    JTextField namef;
+    JPasswordField passwordf;
+    
+    
+
+    Login(){
+        setTitle("Student Course Registration");
+        
+        setLayout(null);
+        
+        ImageIcon i1=new ImageIcon(ClassLoader.getSystemResource("image/bk2.jpg"));
+        Image i2=i1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+        ImageIcon i3=new ImageIcon(i2);
+        JLabel label=new JLabel(i3);
+        label.setBounds(40, 10, 100, 100);
+        add(label);
+        
+        JLabel welcome=new JLabel("Welcome to the Course");
+        welcome.setBounds(220, 10, 450, 100);
+        welcome.setFont(new Font("Osward", Font.BOLD, 38));
+        add(welcome);
+        
+        name=new JLabel("Name:");
+        name.setBounds(120, 150, 150, 30);
+        name.setFont(new Font("Osward", Font.BOLD, 28));
+        add(name);
+        
+        namef=new JTextField();
+        namef.setBounds(300, 150, 230, 30);
+        namef.setFont(new Font("Ariel", Font.BOLD, 14));
+        add(namef);
+        
+        
+        password=new JLabel("Password:");
+        password.setBounds(120, 220, 150, 30);
+        password.setFont(new Font("Ariel", Font.BOLD, 28));
+        add(password);
+        
+        
+        passwordf=new JPasswordField();
+        passwordf.setBounds(300, 220, 230, 30);
+        passwordf.setFont(new Font("Ariel", Font.BOLD, 14));
+        add(passwordf);
+        
+        signUp=new JButton("Sign Up");
+        signUp.setBounds(300, 350, 230, 30);
+        signUp.setBackground(Color.BLACK);
+        signUp.setForeground(Color.WHITE);
+        signUp.addActionListener(this);
+        add(signUp);
+        
+        Login=new JButton("Login");
+        Login.setBounds(300, 300, 100, 30);
+        Login.setBackground(Color.BLACK);
+        Login.setForeground(Color.WHITE);
+        Login.addActionListener(this);
+        add(Login);
+        
+        clear=new JButton("Clear");
+        clear.setBounds(430, 300, 100, 30);
+        clear.setBackground(Color.BLACK);
+        clear.setForeground(Color.white);
+        clear.addActionListener(this);
+        add(clear);
+        
+        getContentPane().setBackground(Color.WHITE);
+        
+        setSize(800,480);
+        setLocation(350, 200);
+        setVisible(true);
+        
+    }
+    
+    public void actionPerformed(ActionEvent ae){
+        String name=namef.getText();
+        String password = passwordf.getText();
+        if(ae.getSource()==clear){
+            namef.setText("");
+            passwordf.setText("");
+        }
+        try {
+             if (name.equals("")) {
+                 JOptionPane.showMessageDialog(null, "Name is required");
+             }if (passwordf.equals("")) {
+                 JOptionPane.showMessageDialog(null, "Password is required");
+             }else{
+                 StudentConn c = new StudentConn();
+                 String query = "INSERT INTO studentinfo (name, password) VALUES ('" + name + "','" + password + "')";
+                 c.s.executeUpdate(query);
+                 setVisible(false);
+                 new Courses().setVisible(true);
+                 
+             }}catch (Exception e) {
+             System.out.println(e);
+        }
+    }
+    public static void main(String[] args) {
+        new Login();
+    }
+}
